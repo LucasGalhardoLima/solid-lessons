@@ -12,7 +12,13 @@ export const listPlanets = async (search?: string) => {
             `planets/${search ? `?search=${search}` : ""}`
         );
         console.log(results);
-        setPlanets(results);
+        setPlanets(results.map((item: { url: string; }) => ({
+          ...item,
+          id: item.url.substring(
+              item.url.length - 2,
+              item.url.length - 1
+          )
+        })));
     } catch (error) {
         console.log(error);
     }
